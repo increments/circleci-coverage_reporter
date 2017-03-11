@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [0.1.3] - 2017-03-12
 ### Fixed
 - Raise `RequestError` if some API reqeust fails
 - Show `NaN` if .last_run.json does not exist
@@ -24,6 +26,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - Initial release
 
-[Unreleased]: https://github.com/increments/circleci-coverage_reporter/compare/v0.1.2...HEAD
+[Unreleased]: https://github.com/increments/circleci-coverage_reporter/compare/v0.1.3...HEAD
+[0.1.3]: https://github.com/increments/circleci-coverage_reporter/compare/v0.1.2...v0.1.3
 [0.1.2]: https://github.com/increments/circleci-coverage_reporter/compare/v0.1.1...v0.1.2
 [0.1.1]: https://github.com/increments/circleci-coverage_reporter/compare/v0.1.0...v0.1.1
