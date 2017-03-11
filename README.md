@@ -34,7 +34,7 @@
     ```yaml
     test:
       post:
-      - bundle exec circleci:report_coverage
+      - bundle exec rake circleci:report_coverage
     ```
 
 ## Run manually
@@ -66,7 +66,7 @@ SimpleCov.coverage_dir(File.join(ENV['CIRCLE_ARTIFACTS'], 'coverage')) if ENV['C
 SimpleCov.start
 ```
 
-If you put files in directory, say `$CIRCLE_ARTIFACTS/foo/bar`, you have to set reporter as follows:
+If you put files in another directory, say `$CIRCLE_ARTIFACTS/foo/bar`, you have to set reporter as follows:
 
 ```ruby
 CircleCI::CoverageReporter.configure do |config|
