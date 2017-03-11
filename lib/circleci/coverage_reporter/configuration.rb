@@ -1,16 +1,16 @@
-require_relative 'reporters/simplecov'
+require_relative 'simplecov/reporter'
 
 module CircleCI
   module CoverageReporter
     class Configuration
-      DEFAULT_REPORTERS = [Reporters::SimpleCov.new].freeze
+      DEFAULT_REPORTERS = [SimpleCov::Reporter.new].freeze
       DEFAULT_VCS_TYPE = 'github'.freeze
 
       attr_accessor :artifacts_dir, :base_revision, :circleci_token, :previous_build_number, :repository_name, :user_name
 
       attr_writer :reporters, :vcs_type
 
-      # @return [Array<Reporter>]
+      # @return [Array<AbstractReporter>]
       def reporters
         @reporters ||= DEFAULT_REPORTERS
       end

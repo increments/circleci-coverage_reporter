@@ -36,7 +36,7 @@ module CircleCI
       # @return [Integer, nil]
       def build_number_by_revision(revision, branch: nil)
         build = recent_builds(branch).find { |b| b.match?(revision) }
-        build ? build.build_num : nil
+        build ? build.build_number : nil
       end
 
       # @param url [String]

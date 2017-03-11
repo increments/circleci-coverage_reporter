@@ -1,9 +1,9 @@
 module CircleCI
   module CoverageReporter
     class Report
-      # @param current [Result]
-      # @param base [Result, nil]
-      # @param previous [Result, nil]
+      # @param current [AbstractResult]
+      # @param base [AbstractResult, nil]
+      # @param previous [AbstractResult, nil]
       def initialize(current:, base:, previous:)
         @current = current
         @base = base
