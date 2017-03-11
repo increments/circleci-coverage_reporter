@@ -1,5 +1,6 @@
 require_relative 'coverage_reporter/configuration'
 require_relative 'coverage_reporter/client'
+require_relative 'coverage_reporter/runner'
 
 module CircleCI
   module CoverageReporter
@@ -18,6 +19,11 @@ module CircleCI
     # @yield [Configuration]
     def self.configure
       yield configuration if block_given?
+    end
+
+    # @return [void]
+    def self.run
+      Runner.new.run
     end
   end
 end
