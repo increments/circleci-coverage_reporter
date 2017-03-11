@@ -54,7 +54,7 @@ module CircleCI
           'project',
           configuration.vcs_type,
           configuration.user_name,
-          configuration.project,
+          configuration.repository_name,
           build_number,
           'artifacts'
         ].join('/')
@@ -76,7 +76,7 @@ module CircleCI
           'project',
           configuration.vcs_type,
           configuration.user_name,
-          configuration.project
+          configuration.repository_name
         ]
         elements += ['tree', branch] if branch
         elements.join('/')
