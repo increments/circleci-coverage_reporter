@@ -16,6 +16,13 @@ module CircleCI
         @configuration = configuration
       end
 
+      # @param build_number [Integer, nil]
+      # @return [Build, nil]
+      def single_build(build_number)
+        return unless build_number
+        create_build(JSON.parse(get(with_circleci_token(single_build_url(build_number))).body))
+      end
+
       # @param build_number [Integer]
       # @return [Array<Artifact>]
       def artifacts(build_number)
@@ -63,9 +70,7 @@ module CircleCI
       # @param branch [String, nil]
       # @return [Array<Build>]
       def recent_builds(branch)
-        JSON.parse(get(with_circleci_token(recent_builds_url(branch)) + '&limit=100').body).map do |hash|
-          Build.new(hash['vcs_revision'], hash['build_num'], hash['previous']['build_num'])
-        end
+        JSON.parse(get(with_circleci_token(recent_builds_url(branch)) + '&limit=100').body).map(&method(:create_build))
       end
 
       # @param branch [String, nil]
@@ -80,6 +85,25 @@ module CircleCI
         ]
         elements += ['tree', branch] if branch
         elements.join('/')
+      end
+
+      # @param build_number [Integer]
+      # @return [String]
+      def single_build_url(build_number)
+        [
+          CIRCLECI_ENDPOINT,
+          'project',
+          configuration.vcs_type,
+          configuration.user_name,
+          configuration.repository_name,
+          build_number
+        ].join('/')
+      end
+
+      # @param hash [Hash]
+      # @return [Build]
+      def create_build(hash)
+        Build.new(hash['vcs_revision'], hash['build_num'])
       end
     end
   end
