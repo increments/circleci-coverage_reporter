@@ -19,5 +19,10 @@ module CircleCI
     def self.configure
       yield configuration if block_given?
     end
+
+    # @return [Integer]
+    def self.base_build_number
+      client.build_number_by_revision(`git merge-base origin/master HEAD`.strip, branch: 'master')
+    end
   end
 end
