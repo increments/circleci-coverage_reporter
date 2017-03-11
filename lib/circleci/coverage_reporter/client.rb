@@ -20,7 +20,7 @@ module CircleCI
       # @return [Build, nil]
       def single_build(build_number)
         return unless build_number
-        create_build(JSON.parse(get(with_circleci_token(single_build_url(build_number))).body))
+        create_build(JSON.parse(get(single_build_url(build_number)).body))
       end
 
       # @param build_number [Integer]
@@ -40,18 +40,14 @@ module CircleCI
       end
 
       # @param url [String]
+      # @param params [Hash]
       # @return [Faraday::Response]
-      def get(url)
-        Faraday.get(with_circleci_token(url))
+      def get(url, params = {})
+        params['circle-token'] = configuration.circleci_token
+        Faraday.get(url + '?' + params.map { |k, v| "#{k}=#{v}" }.join('&'))
       end
 
       private
-
-      # @param url [String]
-      # @return [String]
-      def with_circleci_token(url)
-        "#{url}?circle-token=#{configuration.circleci_token}"
-      end
 
       # @param build_number [Integer]
       # @return [String]
@@ -69,7 +65,7 @@ module CircleCI
       # @param branch [String, nil]
       # @return [Array<Build>]
       def recent_builds(branch)
-        JSON.parse(get(with_circleci_token(recent_builds_url(branch)) + '&limit=100').body).map(&method(:create_build))
+        JSON.parse(get(recent_builds_url(branch), limit: 100).body).map(&method(:create_build))
       end
 
       # @param branch [String, nil]
