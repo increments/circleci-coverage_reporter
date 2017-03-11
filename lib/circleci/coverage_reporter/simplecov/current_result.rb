@@ -21,6 +21,7 @@ module CircleCI
           [
             'https://circle-artifacts.com/gh',
             configuration.project,
+            configuration.current_build_number,
             'artifacts',
             "0#{configuration.artifacts_dir}",
             path,

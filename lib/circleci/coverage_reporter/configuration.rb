@@ -7,8 +7,8 @@ module CircleCI
       DEFAULT_VCS_TYPE = 'github'.freeze
 
       attr_accessor :circleci_token, :vcs_token
-      attr_writer :artifacts_dir, :base_revision, :current_revision, :previous_build_number, :reporters,
-                  :repository_name, :user_name, :vcs_type
+      attr_writer :artifacts_dir, :base_revision, :current_build_number, :current_revision, :previous_build_number,
+                  :reporters, :repository_name, :user_name, :vcs_type
 
       # @return [String]
       def project
@@ -33,6 +33,11 @@ module CircleCI
       # @return [String]
       def base_revision
         @base_revision ||= `git merge-base origin/master HEAD`.strip
+      end
+
+      # @return [Integer]
+      def current_build_number
+        @current_build_number ||= ENV['CIRCLE_BUILD_NUM']
       end
 
       # @return [String]
