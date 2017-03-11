@@ -2,6 +2,7 @@ require 'faraday'
 
 require_relative 'artifact'
 require_relative 'build'
+require_relative 'errors'
 
 module CircleCI
   module CoverageReporter
@@ -18,17 +19,23 @@ module CircleCI
 
       # @param build_number [Integer, nil]
       # @return [Build, nil]
+      # @raise [RequestError]
       def single_build(build_number)
         return unless build_number
-        create_build(JSON.parse(get(single_build_url(build_number)).body))
+        resp = get(single_build_url(build_number))
+        body = JSON.parse(resp.body)
+        raise RequestError.new(body['message'], resp) unless resp.success?
+        create_build(body)
       end
 
       # @param build_number [Integer]
       # @return [Array<Artifact>]
+      # @raise [RequestError]
       def artifacts(build_number)
-        JSON.parse(get(artifacts_url(build_number)).body).map do |hash|
-          Artifact.new(hash['path'], hash['pretty_path'], hash['node_index'], hash['url'])
-        end
+        resp = get(artifacts_url(build_number))
+        body = JSON.parse(resp.body)
+        raise RequestError.new(body['message'], resp) unless resp.success?
+        body.map(&method(:create_artifact))
       end
 
       # @param revision [String]
@@ -64,8 +71,12 @@ module CircleCI
 
       # @param branch [String, nil]
       # @return [Array<Build>]
+      # @raise [RequestError]
       def recent_builds(branch)
-        JSON.parse(get(recent_builds_url(branch), limit: 100).body).map(&method(:create_build))
+        resp = get(recent_builds_url(branch), limit: 100)
+        body = JSON.parse(resp.body)
+        raise RequestError.new(body['message'], resp) unless resp.success?
+        body.map(&method(:create_build))
       end
 
       # @param branch [String, nil]
@@ -91,6 +102,12 @@ module CircleCI
           configuration.project,
           build_number
         ].join('/')
+      end
+
+      # @param hash [Hash]
+      # @return [Artifact]
+      def create_artifact(hash)
+        Artifact.new(hash['path'], hash['pretty_path'], hash['node_index'], hash['url'])
       end
 
       # @param hash [Hash]
