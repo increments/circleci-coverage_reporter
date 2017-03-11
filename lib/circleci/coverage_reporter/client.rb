@@ -60,8 +60,7 @@ module CircleCI
           CIRCLECI_ENDPOINT,
           'project',
           configuration.vcs_type,
-          configuration.user_name,
-          configuration.repository_name,
+          configuration.project,
           build_number,
           'artifacts'
         ].join('/')
@@ -80,8 +79,7 @@ module CircleCI
           CIRCLECI_ENDPOINT,
           'project',
           configuration.vcs_type,
-          configuration.user_name,
-          configuration.repository_name
+          configuration.project
         ]
         elements += ['tree', branch] if branch
         elements.join('/')
@@ -94,8 +92,7 @@ module CircleCI
           CIRCLECI_ENDPOINT,
           'project',
           configuration.vcs_type,
-          configuration.user_name,
-          configuration.repository_name,
+          configuration.project,
           build_number
         ].join('/')
       end

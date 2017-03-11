@@ -10,6 +10,11 @@ module CircleCI
 
       attr_writer :reporters, :vcs_type
 
+      # @return [String]
+      def project
+        "#{user_name}/#{repository_name}"
+      end
+
       # @return [Array<AbstractReporter>]
       def reporters
         @reporters ||= DEFAULT_REPORTERS

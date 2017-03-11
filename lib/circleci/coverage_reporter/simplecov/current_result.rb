@@ -20,8 +20,7 @@ module CircleCI
         def url
           [
             'https://circle-artifacts.com/gh',
-            configuration.user_name,
-            configuration.repository_name,
+            configuration.project,
             'artifacts',
             "0#{configuration.artifacts_dir}",
             path,
