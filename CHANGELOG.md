@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Fixed
 - Raise `RequestError` if some API reqeust fails
+- Show `NaN` if .last_run.json does not exist
 
 ## [0.1.2] - 2017-03-12
 ### Fixed

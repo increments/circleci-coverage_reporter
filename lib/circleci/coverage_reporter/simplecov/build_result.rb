@@ -12,13 +12,15 @@ module CircleCI
         # @note Implement {AbstractResult#coverage}
         # @return [Float]
         def coverage
-          JSON.parse(find_artifact('.last_run.json').body)['result']['covered_percent']
+          last_run_json = find_artifact('.last_run.json') or return Float::NaN
+          JSON.parse(last_run_json.body)['result']['covered_percent']
         end
 
         # @note Implement {AbstractResult#url}
         # @return [String]
         def url
-          find_artifact('index.html').url
+          index_html = find_artifact('index.html') or return '#'
+          index_html.url
         end
 
         private
