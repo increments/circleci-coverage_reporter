@@ -24,6 +24,24 @@ module CircleCI
     # @return [void]
     def self.run
       Runner.new.run
+    rescue
+      dump
+      raise
+    end
+
+    # @return [void]
+    def self.dump
+      puts <<-EOF
+  CircleCI::CoverageReporter.configure do |config|
+    config.base_revision = '#{configuration.base_revision}'
+    config.current_build_number = '#{configuration.current_build_number}'
+    config.current_revision = '#{configuration.current_revision}'
+    config.previous_build_number = '#{configuration.previous_build_number}'
+    config.repository_name = '#{configuration.repository_name}'
+    config.user_name = '#{configuration.user_name}'
+    config.vcs_type = '#{configuration.vcs_type}'
+  end
+      EOF
     end
   end
 end
