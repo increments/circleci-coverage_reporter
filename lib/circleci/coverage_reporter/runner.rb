@@ -5,11 +5,23 @@ module CircleCI
     class Runner
       # @return [void]
       def run
+        dump
         reports = reporters.map { |reporter| reporter.report(base_build, previous_build) }
         vcs_client.create_comment(reports)
       end
 
       private
+
+      # @return [void]
+      def dump
+        puts <<-EOF
+Runner            | Value
+------------------|-----------------------------------------------------------------------------------
+base_build        | #{base_build.inspect}
+base_build_number | #{base_build_number.inspect}
+previous_build    | #{previous_build.inspect}
+        EOF
+      end
 
       # @return [AbstractVCSClient]
       def vcs_client
