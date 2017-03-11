@@ -45,9 +45,9 @@ module CircleCI
         @current_revision ||= ENV['CIRCLE_SHA1']
       end
 
-      # @return [Integer]
+      # @return [Integer, nil]
       def previous_build_number
-        @previous_build_number ||= ENV['CIRCLE_PREVIOUS_BUILD_NUM'].to_i
+        @previous_build_number ||= ENV['CIRCLE_PREVIOUS_BUILD_NUM'] && ENV['CIRCLE_PREVIOUS_BUILD_NUM'].to_i
       end
 
       # @return [String]
