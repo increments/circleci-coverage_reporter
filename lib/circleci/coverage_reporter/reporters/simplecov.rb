@@ -1,13 +1,13 @@
 require 'json'
 
 require_relative '../result'
-require_relative 'base_reporter'
+require_relative '../reporter'
 
 module CircleCI
   module CoverageReporter
     module Reporters
-      class SimpleCov < BaseReporter
-        # @note Implement {BaseReporter#build_by_build_number}
+      class SimpleCov < Reporter
+        # @note Implement {Reporter#build_by_build_number}
         # @param build_number [Integer, nil]
         # @return [Result, nil]
         def build_by_build_number(build_number)

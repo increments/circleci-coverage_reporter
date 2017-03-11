@@ -10,7 +10,7 @@ module CircleCI
 
       attr_writer :reporters, :vcs_type
 
-      # @return [Array<Reporters::BaseReporter>]
+      # @return [Array<Reporter>]
       def reporters
         @reporters ||= DEFAULT_REPORTERS
       end
