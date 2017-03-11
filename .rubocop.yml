@@ -4,6 +4,9 @@ AllCops:
 Metrics/LineLength:
   Max: 125
 
+Style/AndOr:
+  EnforcedStyle: conditionals
+
 Style/Documentation:
   Enabled: false
 

@@ -59,7 +59,9 @@ module CircleCI
       # @return [String]
       def diff(after_result, before_result)
         value = (after_result.coverage - before_result.coverage).round(2)
-        if value.positive?
+        if value.nan?
+          'NaN'
+        elsif value.positive?
           "+#{value}"
         elsif value.negative?
           value.to_s
