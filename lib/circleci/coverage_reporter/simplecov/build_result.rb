@@ -12,16 +12,23 @@ module CircleCI
         # @note Implement {AbstractResult#coverage}
         # @return [Float]
         def coverage
-          JSON.parse(last_run.body)['result']['covered_percent']
+          JSON.parse(find_artifact('.last_run.json').body)['result']['covered_percent']
+        end
+
+        # @note Implement {AbstractResult#url}
+        # @return [String]
+        def url
+          find_artifact('index.html').url
         end
 
         private
 
         attr_reader :build
 
+        # @param end_with [String]
         # @return [Artifact]
-        def last_run
-          @last_run ||= build.artifacts.find { |a| a.end_with?('.last_run.json') }
+        def find_artifact(end_with)
+          build.artifacts.find { |a| a.end_with?(end_with) }
         end
       end
     end

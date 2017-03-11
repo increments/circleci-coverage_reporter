@@ -6,6 +6,11 @@ module CircleCI
       def coverage
         raise NotImplementedError
       end
+
+      # @return [String] URL for coverage index.html
+      def url
+        raise NotImplementedError
+      end
     end
   end
 end
