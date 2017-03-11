@@ -21,12 +21,12 @@ module CircleCI
         end
       end
 
-      # @return [Build]
+      # @return [Build, nil]
       def base_build
         @base_build ||= client.single_build(base_build_number)
       end
 
-      # @return [Build]
+      # @return [Build, nil]
       def previous_build
         @previous_build ||= client.single_build(previous_build_number)
       end
@@ -53,6 +53,7 @@ module CircleCI
 
       # @return [Integer, nil]
       def base_build_number
+        return if client.configuration.base_revision == client.configuration.current_revision
         @base_build_number ||= client.build_number_by_revision(base_revision, branch: 'master')
       end
     end
