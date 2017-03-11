@@ -6,7 +6,8 @@ module CircleCI
       DEFAULT_REPORTERS = [SimpleCov::Reporter.new].freeze
       DEFAULT_VCS_TYPE = 'github'.freeze
 
-      attr_accessor :artifacts_dir, :base_revision, :circleci_token, :previous_build_number, :repository_name, :user_name
+      attr_accessor :artifacts_dir, :base_revision, :circleci_token, :current_revision, :previous_build_number,
+                    :repository_name, :user_name, :vcs_token
 
       attr_writer :reporters, :vcs_type
 

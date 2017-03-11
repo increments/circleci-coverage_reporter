@@ -1,5 +1,6 @@
 require_relative 'coverage_reporter/configuration'
 require_relative 'coverage_reporter/client'
+require_relative 'coverage_reporter/runner'
 
 module CircleCI
   module CoverageReporter
@@ -20,9 +21,9 @@ module CircleCI
       yield configuration if block_given?
     end
 
-    # @return [Integer]
-    def self.base_build_number
-      client.build_number_by_revision(`git merge-base origin/master HEAD`.strip, branch: 'master')
+    # @return [void]
+    def self.run
+      Runner.new.run
     end
   end
 end
