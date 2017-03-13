@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- Support [Flow](flowtype.org) coverage reported by [flow-coverage-report](https://github.com/rpl/flow-coverage-report)
+
 ### Fixed
 - Disable inactive reporters
 
