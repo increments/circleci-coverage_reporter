@@ -24,7 +24,7 @@ module CircleCI
     # @return [void]
     def self.run
       configuration.dump
-      Runner.new.run
+      Runner.new.tap(&:dump).run
     end
   end
 end
