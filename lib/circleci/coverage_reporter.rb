@@ -1,5 +1,6 @@
 require_relative 'coverage_reporter/client'
 require_relative 'coverage_reporter/configuration'
+require_relative 'coverage_reporter/errors'
 require_relative 'coverage_reporter/runner'
 
 module CircleCI
@@ -25,6 +26,7 @@ module CircleCI
     def self.run
       configuration.reporters.select!(&:active?)
       configuration.dump
+      raise NoActiveReporter if configuration.reporters.empty?
       Runner.new.tap(&:dump).run
     end
   end
