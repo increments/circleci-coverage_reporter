@@ -5,8 +5,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- Support [Flow](flowtype.org) coverage reported by [flow-coverage-report](https://github.com/rpl/flow-coverage-report)
+
 ### Fixed
 - Disable inactive reporters
+- Fix uninitialized constant `Float::NaN`
 
 ## [0.1.3] - 2017-03-12
 ### Fixed

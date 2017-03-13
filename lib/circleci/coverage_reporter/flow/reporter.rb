@@ -6,14 +6,14 @@ require_relative 'current_result'
 
 module CircleCI
   module CoverageReporter
-    module SimpleCov
+    module Flow
       class Reporter < AbstractReporter
-        DEFAULT_PATH = 'coverage'.freeze
+        DEFAULT_PATH = 'flow-coverage'.freeze
 
         # @note Implement {AbstractReporter#name}
         # @return [String]
         def name
-          'SimpleCov'
+          'Flow'
         end
 
         private

@@ -1,9 +1,13 @@
+require_relative 'flow/reporter'
 require_relative 'simplecov/reporter'
 
 module CircleCI
   module CoverageReporter
     class Configuration
-      DEFAULT_REPORTERS = [SimpleCov::Reporter.new].freeze
+      DEFAULT_REPORTERS = [
+        SimpleCov::Reporter.new,
+        Flow::Reporter.new
+      ].freeze
       DEFAULT_VCS_TYPE = 'github'.freeze
 
       attr_accessor :circleci_token, :vcs_token

@@ -2,7 +2,7 @@ require_relative '../abstract_result'
 
 module CircleCI
   module CoverageReporter
-    module SimpleCov
+    module Flow
       class BuildResult < AbstractResult
         # @param path [String]
         # @param build [Build]
@@ -14,8 +14,8 @@ module CircleCI
         # @note Implement {AbstractResult#coverage}
         # @return [Float]
         def coverage
-          last_run_json = find_artifact('.last_run.json') or return Float::NAN
-          JSON.parse(last_run_json.body)['result']['covered_percent']
+          flow_coverage_json = find_artifact('flow-coverage.json') or return Float::NAN
+          JSON.parse(flow_coverage_json.body)['percent']
         end
 
         # @note Implement {AbstractResult#url}
