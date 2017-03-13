@@ -14,7 +14,7 @@ module CircleCI
         # @note Implement {AbstractResult#coverage}
         # @return [Float]
         def coverage
-          flow_coverage_json = find_artifact('flow-coverage.json') or return Float::NaN
+          flow_coverage_json = find_artifact('flow-coverage.json') or return Float::NAN
           JSON.parse(flow_coverage_json.body)['percent']
         end
 
