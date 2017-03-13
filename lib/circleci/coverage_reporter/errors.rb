@@ -13,5 +13,7 @@ module CircleCI
         super(message)
       end
     end
+
+    class NoActiveReporter < Error; end
   end
 end

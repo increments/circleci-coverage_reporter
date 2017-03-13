@@ -10,11 +10,6 @@ module CircleCI
       class Reporter < AbstractReporter
         DEFAULT_PATH = 'coverage'.freeze
 
-        # @param path [String] relative path from artifacts dir to coverage directory
-        def initialize(path = DEFAULT_PATH)
-          @path = path
-        end
-
         # @note Implement {AbstractReporter#name}
         # @return [String]
         def name
@@ -22,8 +17,6 @@ module CircleCI
         end
 
         private
-
-        attr_reader :path
 
         # @note Implement {AbstractReporter#create_build_result}
         # @param build [Build, nil]
