@@ -4,8 +4,10 @@ module CircleCI
   module CoverageReporter
     module SimpleCov
       class BuildResult < AbstractResult
+        # @param path [String]
         # @param build [Build]
-        def initialize(build)
+        def initialize(path, build)
+          @path = path
           @build = build
         end
 
@@ -25,12 +27,12 @@ module CircleCI
 
         private
 
-        attr_reader :build
+        attr_reader :build, :path
 
         # @param end_with [String]
         # @return [Artifact]
         def find_artifact(end_with)
-          build.artifacts.find { |a| a.end_with?(end_with) }
+          build.artifacts.find { |a| a.end_with?("#{path}/#{end_with}") }
         end
       end
     end

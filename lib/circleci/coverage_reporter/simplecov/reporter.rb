@@ -23,7 +23,7 @@ module CircleCI
         # @return [BuildResult, nil]
         def create_build_result(build)
           return unless build
-          BuildResult.new(build)
+          BuildResult.new(path, build)
         end
 
         # @note Implement {AbstractReporter#create_current_result}
