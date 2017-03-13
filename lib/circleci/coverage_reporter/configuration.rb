@@ -59,6 +59,25 @@ module CircleCI
       def user_name
         @user_name ||= ENV['CIRCLE_PROJECT_USERNAME']
       end
+
+      # @return [void]
+      def dump # rubocop:disable AbcSize
+        puts <<-EOF
+Configuration         | Value
+----------------------|----------------------------------------------------------------------------
+artifacts_dir         | #{artifacts_dir.inspect}
+base_revision         | #{base_revision.inspect}
+circleci_token        | #{circleci_token[-4..-1].rjust(40, '*').inspect}
+current_build_number  | #{current_build_number.inspect}
+current_revision      | #{current_revision.inspect}
+previous_build_number | #{previous_build_number.inspect}
+reporters             | #{reporters.inspect}
+repository_name       | #{repository_name.inspect}
+user_name             | #{user_name.inspect}
+vcs_token             | #{vcs_token[-4..-1].rjust(40, '*').inspect}
+vcs_type              | #{vcs_type.inspect}
+        EOF
+      end
     end
   end
 end
