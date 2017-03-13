@@ -17,7 +17,7 @@ module CircleCI
 
       # @return [Array<AbstractReporter>]
       def reporters
-        @reporters ||= DEFAULT_REPORTERS
+        @reporters ||= DEFAULT_REPORTERS.dup
       end
 
       # @return [String]
