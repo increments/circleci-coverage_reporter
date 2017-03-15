@@ -6,7 +6,7 @@ module CircleCI
       # @return [void]
       def run
         reports = reporters.map { |reporter| reporter.report(base_build, previous_build) }
-        vcs_client.create_comment(reports)
+        vcs_client.create_comment(reports.join("\n"))
       end
 
       # @return [void]
