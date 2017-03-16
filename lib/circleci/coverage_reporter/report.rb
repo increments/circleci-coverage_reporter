@@ -5,7 +5,7 @@ module CircleCI
       # @param current [AbstractResult]
       # @param base [AbstractResult, nil]
       # @param previous [AbstractResult, nil]
-      def initialize(reporter, current:, base:, previous:)
+      def initialize(reporter, current, base: nil, previous: nil)
         @reporter = reporter
         @current_result = current
         @base_result = base

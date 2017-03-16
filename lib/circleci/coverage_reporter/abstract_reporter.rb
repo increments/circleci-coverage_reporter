@@ -21,7 +21,7 @@ module CircleCI
       def report(base_build, previous_build)
         Report.new(
           self,
-          current: create_current_result,
+          create_current_result,
           base: create_build_result(base_build),
           previous: create_build_result(previous_build)
         )
