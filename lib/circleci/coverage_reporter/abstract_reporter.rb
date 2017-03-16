@@ -12,7 +12,7 @@ module CircleCI
 
       # @return [Boolean] whether it is active
       def active?
-        File.directory?(File.join(CoverageReporter.configuration.artifacts_dir, path))
+        File.directory?(File.join(configuration.artifacts_dir, path))
       end
 
       # @param base_build [Build, nil]
@@ -47,9 +47,9 @@ module CircleCI
         raise NotImplementedError
       end
 
-      # @return [Client]
-      def client
-        CoverageReporter.client
+      # @return [Configuration]
+      def configuration
+        CoverageReporter.configuration
       end
     end
   end

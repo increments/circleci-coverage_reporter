@@ -24,9 +24,9 @@ previous_build    | #{previous_build.inspect}
 
       # @return [AbstractVCSClient]
       def vcs_client
-        case client.configuration.vcs_type
+        case configuration.vcs_type
         when 'github'
-          GitHubClient.new(client.configuration.vcs_token)
+          GitHubClient.new(configuration.vcs_token)
         else
           raise NotImplementedError
         end
@@ -47,24 +47,29 @@ previous_build    | #{previous_build.inspect}
         CoverageReporter.client
       end
 
+      # @return [Configuration]
+      def configuration
+        CoverageReporter.configuration
+      end
+
       # @return [String, nil]
       def base_revision
-        client.configuration.base_revision
+        configuration.base_revision
       end
 
       # @return [Integer, nil]
       def previous_build_number
-        client.configuration.previous_build_number
+        configuration.previous_build_number
       end
 
       # @return [Array<AbstractReporter>]
       def reporters
-        client.configuration.reporters
+        configuration.reporters
       end
 
       # @return [Integer, nil]
       def base_build_number
-        return if client.configuration.base_revision == client.configuration.current_revision
+        return if configuration.base_revision == configuration.current_revision
         @base_build_number ||= client.build_number_by_revision(base_revision, branch: 'master')
       end
     end

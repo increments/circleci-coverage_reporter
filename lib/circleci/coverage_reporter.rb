@@ -12,7 +12,7 @@ module CircleCI
 
     # @return [Client]
     def self.client
-      @client ||= Client.new(configuration)
+      @client ||= Client.new
     end
 
     # Yields the global configuration to a block.

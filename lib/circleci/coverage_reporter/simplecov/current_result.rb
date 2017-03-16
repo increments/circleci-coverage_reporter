@@ -38,9 +38,9 @@ module CircleCI
           File.join(configuration.artifacts_dir, path, name)
         end
 
-        # @return [Client]
+        # @return [Configuration]
         def configuration
-          CoverageReporter.client.configuration
+          CoverageReporter.configuration
         end
       end
     end
