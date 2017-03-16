@@ -1,6 +1,7 @@
 # CircleCI::CoverageReporter
 
 [![CircleCI](https://circleci.com/gh/increments/circleci-coverage_reporter.svg?style=svg)](https://circleci.com/gh/increments/circleci-coverage_reporter)
+[![Gem](https://img.shields.io/gem/v/circleci-coverage_reporter.svg)](https://rubygems.org/gems/circleci-coverage_reporter)
 
 **CircleCI::CoverageReporter** reports test coverage to your GitHub repository.
 
