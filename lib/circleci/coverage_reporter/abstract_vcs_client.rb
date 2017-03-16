@@ -7,9 +7,9 @@ module CircleCI
         @token = token
       end
 
-      # @param reports [Array<Report>]
+      # @param body [String]
       # @return [void]
-      def create_comment(reports) # rubocop:disable Lint/UnusedMethodArgument
+      def create_comment(body) # rubocop:disable Lint/UnusedMethodArgument
         raise NotImplementedError
       end
 

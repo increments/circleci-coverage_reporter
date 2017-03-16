@@ -5,25 +5,24 @@ module CircleCI
   module CoverageReporter
     class GitHubClient < AbstractVCSClient
       # @note Implement {AbstractVCSClient#create_comment}
-      # @param reports [Array<Report>]
+      # @param body [String]
       # @return [void]
       # @raise [RequestError]
-      def create_comment(reports)
-        resp = request(reports)
-        body = JSON.parse(resp.body)
-        raise RequestError.new(body['message'], resp) unless resp.success?
+      def create_comment(body)
+        resp = request(body)
+        raise RequestError.new(JSON.parse(resp.body)['message'], resp) unless resp.success?
       end
 
       private
 
-      # @param reports [Array<Report>]
+      # @param body [String]
       # @return [Faraday::Response]
-      def request(reports)
+      def request(body)
         Faraday.new(url: 'https://api.github.com').post do |req|
           req.url ['/repos', configuration.project, 'commits', configuration.current_revision, 'comments'].join('/')
           req.headers['Authorization'] = "token #{token}"
           req.headers['Content-Type'] = 'application/json'
-          req.body = JSON.generate(body: reports.join("\n"))
+          req.body = JSON.generate(body: body)
         end
       end
 

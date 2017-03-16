@@ -94,6 +94,23 @@ CircleCI::CoverageReporter.configure do |config|
 end
 ```
 
+## Configuring
+### Template
+
+You can change template for comment body in ERB format with `reports` (an array of
+[`Report`](http://www.rubydoc.info/gems/circleci-coverage_reporter/CircleCI/CoverageReporter/Report))
+and `vcs_type` (always `"github"`).
+
+```rb
+CircleCI::CoverageReporter.configure do |config|
+  config.tempalte = <<-'ERB'
+<%- reports.each do |report| -%>
+[<%= report.type %>](<%= report.url %>) <%= report.coverage %>%
+<%- end -%>
+  ERB
+end
+```
+
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).

@@ -1,4 +1,5 @@
 require_relative 'github_client'
+require_relative 'reports_renderer'
 
 module CircleCI
   module CoverageReporter
@@ -6,7 +7,7 @@ module CircleCI
       # @return [void]
       def run
         reports = reporters.map { |reporter| reporter.report(base_build, previous_build) }
-        vcs_client.create_comment(reports)
+        vcs_client.create_comment(reports_renderer.render(reports))
       end
 
       # @return [void]
@@ -21,6 +22,11 @@ previous_build    | #{previous_build.inspect}
       end
 
       private
+
+      # @return [ReportsRenderer]
+      def reports_renderer
+        ReportsRenderer.new
+      end
 
       # @return [AbstractVCSClient]
       def vcs_client
