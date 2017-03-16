@@ -8,11 +8,25 @@ module CircleCI
         SimpleCov::Reporter.new,
         Flow::Reporter.new
       ].freeze
+      DEFAULT_TEMPLATE = <<-'ERB'.freeze
+<%- reports.each do |report| -%>
+<%
+  link = "[#{report.reporter.name}](#{report.current_result.url})"
+  emoji = report.base_diff.nil? ? nil : report.base_diff.positive? ? ' :chart_with_upwards_trend:' : ' :chart_with_downwards_trend:'
+  base_progress = report.base_diff ? "[master](#{report.base_result.url}): #{report.pretty_base_diff}" : nil
+  branch_progress = report.branch_diff ? "[previous](#{report.previous_result.url}): #{report.pretty_branch_diff}" : nil
+  progresses = [base_progress, branch_progress].compact
+  progress = progresses.empty? ? nil : " (#{progresses.join(', ')})"
+-%>
+<%= link %>: <%= report.current_result.coverage %>%<%= emoji %><%= progress %>
+<%- end -%>
+      ERB
+      DEFAULT_TEMPLATE_TRIM_MODE = '-'.freeze
       DEFAULT_VCS_TYPE = 'github'.freeze
 
       attr_accessor :circleci_token, :vcs_token
       attr_writer :artifacts_dir, :base_revision, :current_build_number, :current_revision, :previous_build_number,
-                  :reporters, :repository_name, :user_name, :vcs_type
+                  :reporters, :repository_name, :template, :template_safe_mode, :template_safe_mode, :user_name, :vcs_type
 
       # @return [String]
       def project
@@ -57,6 +71,16 @@ module CircleCI
       # @return [String]
       def repository_name
         @repository_name ||= ENV['CIRCLE_PROJECT_REPONAME']
+      end
+
+      # @return [String]
+      def template
+        @template ||= DEFAULT_TEMPLATE
+      end
+
+      # @return [String, nil]
+      def template_trim_mode
+        @template_trim_mode ||= DEFAULT_TEMPLATE_TRIM_MODE
       end
 
       # @return [String]
