@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Fixed
-- Suppress emoji if base diff is NaN
+- Suppress emoji if base diff is NaN or zero
 
 ## [0.3.0] - 2017-03-16
 ### Added

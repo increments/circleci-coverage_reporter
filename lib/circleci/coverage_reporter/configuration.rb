@@ -12,7 +12,7 @@ module CircleCI
 <%- reports.each do |report| -%>
 <%
   link = "[#{report.reporter.name}](#{report.current_result.url})"
-  emoji = report.base_diff.nil? || report.base_diff.nan? ? nil : report.base_diff.positive? ? ' :chart_with_upwards_trend:' : ' :chart_with_downwards_trend:'
+  emoji = report.base_diff.nil? || report.base_diff.nan? || report.base_diff.round(2).zero? ? nil : report.base_diff.positive? ? ' :chart_with_upwards_trend:' : ' :chart_with_downwards_trend:'
   base_progress = report.base_diff ? "[master](#{report.base_result.url}): #{report.pretty_base_diff}" : nil
   branch_progress = report.branch_diff ? "[previous](#{report.previous_result.url}): #{report.pretty_branch_diff}" : nil
   progresses = [base_progress, branch_progress].compact
