@@ -1,7 +1,9 @@
 # CircleCI::CoverageReporter
 
-[![CircleCI](https://circleci.com/gh/increments/circleci-coverage_reporter.svg?style=svg)](https://circleci.com/gh/increments/circleci-coverage_reporter)
 [![Gem](https://img.shields.io/gem/v/circleci-coverage_reporter.svg)](https://rubygems.org/gems/circleci-coverage_reporter)
+[![CircleCI](https://img.shields.io/circleci/project/github/increments/circleci-coverage_reporter.svg)](https://circleci.com/gh/increments/circleci-coverage_reporter)
+[![Gemnasium](https://img.shields.io/gemnasium/increments/circleci-coverage_reporter.svg)](https://gemnasium.com/github.com/increments/circleci-coverage_reporter)
+[![Code Climate](https://img.shields.io/codeclimate/github/increments/circleci-coverage_reporter.svg)](https://codeclimate.com/github/increments/circleci-coverage_reporter)
 
 **CircleCI::CoverageReporter** reports test coverage to your GitHub repository.
 
