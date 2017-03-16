@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - Remove `CircleCI::CoverageReporter::Client#configuration`
 
+### Fixed
+- Run each example in sandbox
+
 ## [0.2.0] - 2017-03-14
 ### Added
 - Support [Flow](flowtype.org) coverage reported by [flow-coverage-report](https://github.com/rpl/flow-coverage-report)
