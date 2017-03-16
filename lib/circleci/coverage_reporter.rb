@@ -5,6 +5,12 @@ require_relative 'coverage_reporter/runner'
 
 module CircleCI
   module CoverageReporter
+    class << self
+      # Setters for shared global objects
+      # @api private
+      attr_writer :client, :configuration
+    end
+
     # @return [Configuration]
     def self.configuration
       @configuration ||= Configuration.new
@@ -12,7 +18,7 @@ module CircleCI
 
     # @return [Client]
     def self.client
-      @client ||= Client.new(configuration)
+      @client ||= Client.new
     end
 
     # Yields the global configuration to a block.

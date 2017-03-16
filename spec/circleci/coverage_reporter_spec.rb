@@ -1,14 +1,6 @@
 require 'circleci/coverage_reporter'
 
 RSpec.describe CircleCI::CoverageReporter do
-  describe '.configuration' do
-    subject do
-      described_class.configuration
-    end
-
-    it { should be_a described_class::Configuration }
-  end
-
   describe '.client' do
     subject do
       described_class.client

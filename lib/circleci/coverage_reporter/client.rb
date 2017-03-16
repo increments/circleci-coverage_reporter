@@ -9,14 +9,6 @@ module CircleCI
     class Client
       CIRCLECI_ENDPOINT = 'https://circleci.com/api/v1.1'.freeze
 
-      # @return [Configuration]
-      attr_reader :configuration
-
-      # @param configuration [Configuration]
-      def initialize(configuration)
-        @configuration = configuration
-      end
-
       # @param build_number [Integer, nil]
       # @return [Build, nil]
       # @raise [RequestError]
@@ -55,6 +47,11 @@ module CircleCI
       end
 
       private
+
+      # @return [Configuration]
+      def configuration
+        CoverageReporter.configuration
+      end
 
       # @param build_number [Integer]
       # @return [String]

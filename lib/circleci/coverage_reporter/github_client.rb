@@ -27,9 +27,9 @@ module CircleCI
         end
       end
 
-      # @return [Client]
+      # @return [Configuration]
       def configuration
-        CoverageReporter.client.configuration
+        CoverageReporter.configuration
       end
     end
   end
