@@ -6,4 +6,5 @@ test:
   - bundle exec rspec --format progress --require rspec_junit_formatter --format RspecJunitFormatter -o $CIRCLE_TEST_REPORTS/rspec/junit.xml
   - bundle exec rubocop
   post:
+  - bundle exec rake rubycritic
   - bundle exec rake circleci:report_coverage

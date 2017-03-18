@@ -34,7 +34,7 @@ module CircleCI
       # @param branch [String, nil]
       # @return [Integer, nil]
       def build_number_by_revision(revision, branch: nil)
-        build = recent_builds(branch).find { |b| b.match?(revision) }
+        build = recent_builds(branch).find { |recent_build| recent_build.match?(revision) }
         build ? build.build_number : nil
       end
 
@@ -43,7 +43,7 @@ module CircleCI
       # @return [Faraday::Response]
       def get(url, params = {})
         params['circle-token'] = configuration.circleci_token
-        Faraday.get(url + '?' + params.map { |k, v| "#{k}=#{v}" }.join('&'))
+        Faraday.get(url + '?' + params.map { |key, value| "#{key}=#{value}" }.join('&'))
       end
 
       private
