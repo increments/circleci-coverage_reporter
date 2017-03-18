@@ -14,9 +14,9 @@ module CircleCI
       attr_reader :previous_result
 
       # @param reporter [AbstractReporter]
-      # @param current [AbstractResult]
-      # @param base [AbstractResult, nil]
-      # @param previous [AbstractResult, nil]
+      # @param current [AbstractCurrentResult]
+      # @param base [AbstractBuildResult, nil]
+      # @param previous [AbstractBuildResult, nil]
       def initialize(reporter, current, base: nil, previous: nil)
         @reporter = reporter
         @current_result = current

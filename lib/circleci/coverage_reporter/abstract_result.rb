@@ -1,6 +1,6 @@
 module CircleCI
   module CoverageReporter
-    # @abstract Subclass and override {#coverage} to implement a custom Result class.
+    # @abstract Subclass and override {#coverage} and {#url} to implement a custom Result class.
     class AbstractResult
       # @return [Float]
       def coverage

@@ -1,0 +1,23 @@
+---
+Attribute:
+  enabled: false
+DuplicateMethodCall:
+  max_calls: 2
+FeatureEnvy:
+  enabled: false
+IrresponsibleModule:
+  enabled: false
+RepeatedConditional:
+  exclude:
+    - "CircleCI::CoverageReporter::Client"
+TooManyStatements:
+  exclude:
+    - "CircleCI::CoverageReporter::Sandbox#self.sandboxed"
+UnusedParameters:
+  exclude:
+    - !ruby/regexp /Abstract/
+    - "CircleCI::CoverageReporter::ReportsRenderer#render"
+UtilityFunction:
+  enabled: false
+
+# vim:set ft=yaml:
