@@ -15,7 +15,7 @@ module CircleCI
         # @return [Float]
         def coverage
           last_run_json = find_artifact('.last_run.json') or return Float::NAN
-          JSON.parse(last_run_json.body)['result']['covered_percent']
+          JSON.parse(last_run_json.body)['result']['covered_percent'].to_f
         end
 
         # @note Implement {AbstractResult#url}

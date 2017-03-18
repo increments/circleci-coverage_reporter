@@ -12,7 +12,7 @@ module CircleCI
         # @note Implement {AbstractResult#coverage}
         # @return [Float]
         def coverage
-          JSON.parse(File.read(join('flow-coverage.json')))['percent']
+          JSON.parse(File.read(join('flow-coverage.json')))['percent'].to_f
         end
 
         # @note Implement {AbstractResult#url}

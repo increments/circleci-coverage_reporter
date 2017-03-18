@@ -12,7 +12,7 @@ module CircleCI
         # @note Implement {AbstractResult#coverage}
         # @return [Float]
         def coverage
-          JSON.parse(File.read(join('report.json')))['score']
+          JSON.parse(File.read(join('report.json')))['score'].to_f
         end
 
         # @note Implement {AbstractResult#url}

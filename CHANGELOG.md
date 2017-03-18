@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Support [RubyCritic](https://github.com/whitesmith/rubycritic) score
 
+### Fixed
+- Make sure that `#coverage` methods return a `Float` object
+
 ## [0.3.1] - 2017-03-17
 ### Fixed
 - Suppress emoji if base diff is NaN or zero
