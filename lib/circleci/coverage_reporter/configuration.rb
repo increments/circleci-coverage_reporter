@@ -1,4 +1,5 @@
 require_relative 'flow/reporter'
+require_relative 'rubycritic/reporter'
 require_relative 'simplecov/reporter'
 
 module CircleCI
@@ -6,7 +7,8 @@ module CircleCI
     class Configuration
       DEFAULT_REPORTERS = [
         SimpleCov::Reporter.new,
-        Flow::Reporter.new
+        Flow::Reporter.new,
+        RubyCritic::Reporter.new
       ].freeze
       DEFAULT_TEMPLATE = <<-'ERB'.freeze
 <%- reports.each do |report| -%>
@@ -18,7 +20,7 @@ module CircleCI
   progresses = [base_progress, branch_progress].compact
   progress = progresses.empty? ? nil : " (#{progresses.join(', ')})"
 -%>
-<%= link %>: <%= report.current_result.coverage %>%<%= emoji %><%= progress %>
+<%= link %>: <%= report.current_result.pretty_coverage %><%= emoji %><%= progress %>
 <%- end -%>
       ERB
       DEFAULT_TEMPLATE_TRIM_MODE = '-'.freeze

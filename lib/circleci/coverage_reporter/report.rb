@@ -29,6 +29,11 @@ module CircleCI
         reporter.name
       end
 
+      # @return [String]
+      def pretty_coverage
+        current_result.pretty_coverage
+      end
+
       # @return [Float] coverage percent of the current build result
       def coverage
         current_result.coverage

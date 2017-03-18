@@ -2,7 +2,7 @@ require_relative '../abstract_result'
 
 module CircleCI
   module CoverageReporter
-    module Flow
+    module RubyCritic
       class CurrentResult < AbstractResult
         # @param path [String] path to coverage directory
         def initialize(path)
@@ -12,7 +12,7 @@ module CircleCI
         # @note Implement {AbstractResult#coverage}
         # @return [Float]
         def coverage
-          JSON.parse(File.read(join('flow-coverage.json')))['percent'].to_f
+          JSON.parse(File.read(join('report.json')))['score'].to_f
         end
 
         # @note Implement {AbstractResult#url}
@@ -25,8 +25,14 @@ module CircleCI
             'artifacts',
             "0#{configuration.artifacts_dir}",
             path,
-            'index.html'
+            'overview.html'
           ].join('/')
+        end
+
+        # @note Override {AbstractResult#pretty_coverage}
+        # @return [String]
+        def pretty_coverage
+          "#{coverage.round(2)}pt"
         end
 
         private

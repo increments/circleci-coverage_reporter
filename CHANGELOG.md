@@ -5,6 +5,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- Support [RubyCritic](https://github.com/whitesmith/rubycritic) score
+- Enable to change score unit
+
+### Changed
+- Round coverage by default
+
+### Fixed
+- Make sure that `#coverage` methods return a `Float` object
 
 ## [0.3.1] - 2017-03-17
 ### Fixed
@@ -22,7 +31,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [0.2.0] - 2017-03-14
 ### Added
-- Support [Flow](flowtype.org) coverage reported by [flow-coverage-report](https://github.com/rpl/flow-coverage-report)
+- Support [Flow](https://flowtype.org) coverage reported by [flow-coverage-report](https://github.com/rpl/flow-coverage-report)
 
 ### Fixed
 - Disable inactive reporters
