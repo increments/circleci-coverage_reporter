@@ -1,4 +1,5 @@
 require_relative 'flow/reporter'
+require_relative 'rubycritic/reporter'
 require_relative 'simplecov/reporter'
 
 module CircleCI
@@ -6,7 +7,8 @@ module CircleCI
     class Configuration
       DEFAULT_REPORTERS = [
         SimpleCov::Reporter.new,
-        Flow::Reporter.new
+        Flow::Reporter.new,
+        RubyCritic::Reporter.new
       ].freeze
       DEFAULT_TEMPLATE = <<-'ERB'.freeze
 <%- reports.each do |report| -%>
