@@ -20,7 +20,7 @@ module CircleCI
   progresses = [base_progress, branch_progress].compact
   progress = progresses.empty? ? nil : " (#{progresses.join(', ')})"
 -%>
-<%= link %>: <%= report.current_result.coverage.round(2) %>%<%= emoji %><%= progress %>
+<%= link %>: <%= report.current_result.pretty_coverage %><%= emoji %><%= progress %>
 <%- end -%>
       ERB
       DEFAULT_TEMPLATE_TRIM_MODE = '-'.freeze

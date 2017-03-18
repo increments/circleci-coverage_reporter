@@ -11,6 +11,11 @@ module CircleCI
       def url
         raise NotImplementedError
       end
+
+      # @return [String]
+      def pretty_coverage
+        "#{coverage.round(2)}%"
+      end
     end
   end
 end

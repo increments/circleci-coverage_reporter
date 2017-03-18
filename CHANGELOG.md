@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added
 - Support [RubyCritic](https://github.com/whitesmith/rubycritic) score
+- Enable to change score unit
 
 ### Changed
 - Round coverage by default

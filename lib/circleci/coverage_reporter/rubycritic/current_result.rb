@@ -29,6 +29,12 @@ module CircleCI
           ].join('/')
         end
 
+        # @note Override {AbstractResult#pretty_coverage}
+        # @return [String]
+        def pretty_coverage
+          "#{coverage.round(2)}pt"
+        end
+
         private
 
         attr_reader :path
