@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Support [RubyCritic](https://github.com/whitesmith/rubycritic) score
 
+### Changed
+- Round coverage by default
+
 ### Fixed
 - Make sure that `#coverage` methods return a `Float` object
 
