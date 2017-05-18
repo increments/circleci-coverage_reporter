@@ -60,11 +60,11 @@ RSpec.describe CircleCI::CoverageReporter::ReportsRenderer do
       end
 
       let(:template) do
-        <<-'ERB'
-<%= vcs_type %>
-<%- reports.each do |report| -%>
-<%= report.current_result.coverage %>
-<%- end -%>
+        <<~'ERB'
+          <%= vcs_type %>
+          <%- reports.each do |report| -%>
+          <%= report.current_result.coverage %>
+          <%- end -%>
         ERB
       end
 

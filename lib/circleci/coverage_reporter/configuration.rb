@@ -10,18 +10,18 @@ module CircleCI
         Flow::Reporter.new,
         RubyCritic::Reporter.new
       ].freeze
-      DEFAULT_TEMPLATE = <<-'ERB'.freeze
-<%- reports.each do |report| -%>
-<%
-  link = "[#{report.reporter.name}](#{report.current_result.url})"
-  emoji = report.base_diff.nil? || report.base_diff.nan? || report.base_diff.round(2).zero? ? nil : report.base_diff.positive? ? ' :chart_with_upwards_trend:' : ' :chart_with_downwards_trend:'
-  base_progress = report.base_diff ? "[master](#{report.base_result.url}): #{report.pretty_base_diff}" : nil
-  branch_progress = report.branch_diff ? "[previous](#{report.previous_result.url}): #{report.pretty_branch_diff}" : nil
-  progresses = [base_progress, branch_progress].compact
-  progress = progresses.empty? ? nil : " (#{progresses.join(', ')})"
--%>
-<%= link %>: <%= report.current_result.pretty_coverage %><%= emoji %><%= progress %>
-<%- end -%>
+      DEFAULT_TEMPLATE = <<~'ERB'.freeze
+        <%- reports.each do |report| -%>
+        <%
+          link = "[#{report.reporter.name}](#{report.current_result.url})"
+          emoji = report.base_diff.nil? || report.base_diff.nan? || report.base_diff.round(2).zero? ? nil : report.base_diff.positive? ? ' :chart_with_upwards_trend:' : ' :chart_with_downwards_trend:'
+          base_progress = report.base_diff ? "[master](#{report.base_result.url}): #{report.pretty_base_diff}" : nil
+          branch_progress = report.branch_diff ? "[previous](#{report.previous_result.url}): #{report.pretty_branch_diff}" : nil
+          progresses = [base_progress, branch_progress].compact
+          progress = progresses.empty? ? nil : " (#{progresses.join(', ')})"
+        -%>
+        <%= link %>: <%= report.current_result.pretty_coverage %><%= emoji %><%= progress %>
+        <%- end -%>
       ERB
       DEFAULT_TEMPLATE_TRIM_MODE = '-'.freeze
       DEFAULT_VCS_TYPE = 'github'.freeze
@@ -92,20 +92,20 @@ module CircleCI
 
       # @return [void]
       def dump # rubocop:disable AbcSize
-        puts <<-EOF
-Configuration         | Value
-----------------------|----------------------------------------------------------------------------
-artifacts_dir         | #{artifacts_dir.inspect}
-base_revision         | #{base_revision.inspect}
-circleci_token        | #{circleci_token[-4..-1].rjust(40, '*').inspect}
-current_build_number  | #{current_build_number.inspect}
-current_revision      | #{current_revision.inspect}
-previous_build_number | #{previous_build_number.inspect}
-reporters             | #{reporters.inspect}
-repository_name       | #{repository_name.inspect}
-user_name             | #{user_name.inspect}
-vcs_token             | #{vcs_token[-4..-1].rjust(40, '*').inspect}
-vcs_type              | #{vcs_type.inspect}
+        puts <<~EOF
+          Configuration         | Value
+          ----------------------|----------------------------------------------------------------------------
+          artifacts_dir         | #{artifacts_dir.inspect}
+          base_revision         | #{base_revision.inspect}
+          circleci_token        | #{circleci_token[-4..-1].rjust(40, '*').inspect}
+          current_build_number  | #{current_build_number.inspect}
+          current_revision      | #{current_revision.inspect}
+          previous_build_number | #{previous_build_number.inspect}
+          reporters             | #{reporters.inspect}
+          repository_name       | #{repository_name.inspect}
+          user_name             | #{user_name.inspect}
+          vcs_token             | #{vcs_token[-4..-1].rjust(40, '*').inspect}
+          vcs_type              | #{vcs_type.inspect}
         EOF
       end
     end

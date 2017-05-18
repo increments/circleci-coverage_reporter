@@ -12,12 +12,12 @@ module CircleCI
 
       # @return [void]
       def dump
-        puts <<-EOF
-Runner            | Value
-------------------|-----------------------------------------------------------------------------------
-base_build        | #{base_build.inspect}
-base_build_number | #{base_build_number.inspect}
-previous_build    | #{previous_build.inspect}
+        puts <<~EOF
+          Runner            | Value
+          ------------------|-----------------------------------------------------------------------------------
+          base_build        | #{base_build.inspect}
+          base_build_number | #{base_build_number.inspect}
+          previous_build    | #{previous_build.inspect}
         EOF
       end
 

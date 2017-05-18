@@ -20,4 +20,4 @@ task :rubycritic do
   sh "bundle exec rubycritic #{base_options} -f json lib" if ENV['CIRCLECI']
 end
 
-task default: [:spec, :rubocop]
+task default: %i[spec rubocop]
