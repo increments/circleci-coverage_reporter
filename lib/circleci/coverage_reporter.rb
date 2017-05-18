@@ -3,6 +3,11 @@ require_relative 'coverage_reporter/configuration'
 require_relative 'coverage_reporter/errors'
 require_relative 'coverage_reporter/runner'
 
+require_relative 'coverage_reporter/flow/reporter'
+require_relative 'coverage_reporter/link/reporter'
+require_relative 'coverage_reporter/rubycritic/reporter'
+require_relative 'coverage_reporter/simplecov/reporter'
+
 module CircleCI
   module CoverageReporter
     class << self

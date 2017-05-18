@@ -19,7 +19,7 @@ module CircleCI
           "0#{configuration.artifacts_dir}",
           path,
           html_file_name
-        ].join('/')
+        ].compact.join('/')
       end
 
       private

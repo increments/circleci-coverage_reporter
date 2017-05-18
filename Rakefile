@@ -13,6 +13,10 @@ RuboCop::RakeTask.new
 
 YARD::Rake::YardocTask.new
 
+CircleCI::CoverageReporter.configure do |config|
+  config.reporters << CircleCI::CoverageReporter::Link::Reporter.new('doc', 'index.html', name: 'YARD')
+end
+
 desc 'Run RubyCritic'
 task :rubycritic do
   base_options = "-p #{ENV['CIRCLE_ARTIFACTS'] || '.'}/rubycritic --mode-ci --no-browser"
