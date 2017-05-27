@@ -1,22 +1,10 @@
 module CircleCI
   module CoverageReporter
     class Report
-      # @return [AbstractReporter]
-      attr_reader :reporter
-
-      # @return [AbstractResult]
-      attr_reader :current_result
-
-      # @return [AbstractResult, nil]
-      attr_reader :base_result
-
-      # @return [AbstractResult, nil]
-      attr_reader :previous_result
-
-      # @param reporter [AbstractReporter]
-      # @param current [AbstractCurrentResult]
-      # @param base [AbstractBuildResult, nil]
-      # @param previous [AbstractBuildResult, nil]
+      # @param reporter [Reporters::Base]
+      # @param current [Result]
+      # @param base [Result, nil]
+      # @param previous [Result, nil]
       def initialize(reporter, current, base: nil, previous: nil)
         @reporter = reporter
         @current_result = current
@@ -24,9 +12,43 @@ module CircleCI
         @previous_result = previous
       end
 
-      # @return [String] coverage reporter name
-      def type
-        reporter.name
+      # @return [String]
+      def to_s
+        "#{link}: #{current_result.pretty_coverage}#{emoji}#{progress}"
+      end
+
+      private
+
+      attr_reader :reporter, :current_result, :base_result, :previous_result
+
+      def link
+        "[#{reporter.name}](#{current_result.url})"
+      end
+
+      def emoji
+        if base_diff.nil? || base_diff.nan? || base_diff.round(2).zero?
+          nil
+        elsif base_diff.positive?
+          ':chart_with_upwards_trend:'
+        else
+          ':chart_with_downwards_trend:'
+        end
+      end
+
+      def progress
+        progresses.empty? ? nil : "(#{progresses.join(', ')})"
+      end
+
+      def progresses
+        [base_progress, branch_progress].compact
+      end
+
+      def base_progress
+        base_diff ? "[master](#{base_result.url}): #{pretty_base_diff}" : nil
+      end
+
+      def branch_progress
+        branch_diff ? "[previous](#{previous_result.url}): #{pretty_branch_diff}" : nil
       end
 
       # @return [String]
@@ -67,8 +89,6 @@ module CircleCI
         return unless previous_result
         current_result.coverage - previous_result.coverage
       end
-
-      private
 
       # @param diff [Float]
       # @return [String]
