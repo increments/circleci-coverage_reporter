@@ -1,6 +1,9 @@
 module CircleCI
   module CoverageReporter
     # Encapsulate a CircleCI build
+    #
+    # @attr vcs_revision [String] revision of git
+    # @attr build_number [Integer] the ID of the CircleCI build
     Build = Struct.new(:vcs_revision, :build_number) do
       # @param revision [String]
       # @return [Boolean]

@@ -3,8 +3,8 @@ require_relative 'abstract_result'
 module CircleCI
   module CoverageReporter
     class AbstractBuildResult < AbstractResult
-      # @param path [String]
-      # @param build [Build]
+      # @param path [String] path to the root directory of a reporter artifacts
+      # @param build [Build] corresponding CircleCI build
       def initialize(path, build)
         @path = path
         @build = build
