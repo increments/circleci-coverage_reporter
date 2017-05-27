@@ -1,10 +1,15 @@
 require_relative '../result'
-require_relative '../report'
 
 module CircleCI
   module CoverageReporter
     module Reporters
       class Link
+        LinkReport = Struct.new(:name, :url) do
+          def to_s
+            "[#{name}](#{url})"
+          end
+        end
+
         def initialize(options = {})
           @options = options
         end
@@ -20,7 +25,7 @@ module CircleCI
         end
 
         def report(_base_build, _previous_build)
-          Report.new(self, Result.new(Float::NAN, url))
+          LinkReport.new(@options[:name], url)
         end
 
         private
