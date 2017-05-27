@@ -1,14 +1,14 @@
-require_relative 'flow/reporter'
-require_relative 'rubycritic/reporter'
-require_relative 'simplecov/reporter'
+require_relative 'reporters/flow'
+require_relative 'reporters/rubycritic'
+require_relative 'reporters/simplecov'
 
 module CircleCI
   module CoverageReporter
     class Configuration
       DEFAULT_REPORTERS = [
-        SimpleCov::Reporter.new,
-        Flow::Reporter.new,
-        RubyCritic::Reporter.new
+        Reporters::SimpleCov.new,
+        Reporters::Flow.new,
+        Reporters::RubyCritic.new
       ].freeze
       DEFAULT_TEMPLATE = <<~'ERB'.freeze
         <%- reports.each do |report| -%>
@@ -35,7 +35,7 @@ module CircleCI
         "#{user_name}/#{repository_name}"
       end
 
-      # @return [Array<AbstractReporter>]
+      # @return [Array<Reporters::Base>]
       def reporters
         @reporters ||= DEFAULT_REPORTERS.dup
       end

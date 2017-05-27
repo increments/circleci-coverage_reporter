@@ -1,8 +1,7 @@
-require 'circleci/coverage_reporter/abstract_vcs_client'
-require 'circleci/coverage_reporter/abstract_reporter'
-require 'circleci/coverage_reporter/abstract_result'
+require 'circleci/coverage_reporter/reporters/base'
 require 'circleci/coverage_reporter/reports_renderer'
 require 'circleci/coverage_reporter/report'
+require 'circleci/coverage_reporter/result'
 
 RSpec.describe CircleCI::CoverageReporter::ReportsRenderer do
   let(:reports_renderer) do
@@ -19,7 +18,7 @@ RSpec.describe CircleCI::CoverageReporter::ReportsRenderer do
     end
 
     let(:reporter_class) do
-      Class.new(CircleCI::CoverageReporter::AbstractReporter) do
+      Class.new(CircleCI::CoverageReporter::Reporters::Base) do
         def name
           'test'
         end
@@ -30,24 +29,12 @@ RSpec.describe CircleCI::CoverageReporter::ReportsRenderer do
       reporter_class.new('test-path')
     end
 
-    let(:result_class) do
-      Class.new(CircleCI::CoverageReporter::AbstractResult) do
-        # Implementation for {CircleCI::CoverageReporter::AbstractResult}
-        attr_reader :coverage, :url
-
-        def initialize(coverage, url)
-          @coverage = coverage
-          @url = url
-        end
-      end
-    end
-
     let(:first_report) do
-      CircleCI::CoverageReporter::Report.new(reporter, result_class.new(1, 'http://example.com/'))
+      CircleCI::CoverageReporter::Report.new(reporter, CircleCI::CoverageReporter::Result.new(1, 'http://example.com/'))
     end
 
     let(:second_report) do
-      CircleCI::CoverageReporter::Report.new(reporter, result_class.new(2, 'http://example.com/'))
+      CircleCI::CoverageReporter::Report.new(reporter, CircleCI::CoverageReporter::Result.new(2, 'http://example.com/'))
     end
 
     it { should be_a String }
