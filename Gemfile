@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gemspec
 
 group :development, :test do
+  gem 'ffaker', '~> 2.5'
   gem 'rake', '~> 11.0'
   gem 'rspec', '~> 3.5'
   gem 'rspec_junit_formatter', '~> 0.2', require: false
