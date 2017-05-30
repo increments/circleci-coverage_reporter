@@ -5,8 +5,9 @@ module CircleCI
     # @attr path [String] abstract path to the artifact in CircleCI container
     # @attr url [String] URL of the artifact
     Artifact = Struct.new(:path, :url) do
+      # @param value [String]
       # @return [Boolean]
-      def end_with?(value)
+      def match?(value)
         path.end_with?(value)
       end
 

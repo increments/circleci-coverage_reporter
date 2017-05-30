@@ -16,10 +16,10 @@ module CircleCI
         @artifacts ||= CoverageReporter.client.artifacts(build_number)
       end
 
-      # @param end_with [String]
+      # @param string [String]
       # @return [Artifact, nil]
-      def find_artifact(end_with)
-        artifacts.find { |artifact| artifact.end_with?(end_with) }
+      def find_artifact(string)
+        artifacts.find { |artifact| artifact.match?(string) }
       end
     end
   end

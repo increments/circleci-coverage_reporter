@@ -1,15 +1,8 @@
 module CircleCI
   module CoverageReporter
-    class Result
-      attr_reader :coverage, :url
-
-      # @param coverage [Float]
-      # @param url [String] URL for coverage index.html
-      def initialize(coverage, url)
-        @coverage = coverage
-        @url = url
-      end
-
+    # @attr coverage [Float]
+    # @attr url [String] URL for coverage index.html
+    Result = Struct.new(:coverage, :url) do
       # @return [String]
       def pretty_coverage
         "#{coverage.round(2)}%"

@@ -60,21 +60,6 @@ module CircleCI
         branch_diff ? "[previous](#{previous_result.url}): #{pretty_branch_diff}" : nil
       end
 
-      # @return [String]
-      def pretty_coverage
-        current_result.pretty_coverage
-      end
-
-      # @return [Float] coverage percent of the current build result
-      def coverage
-        current_result.coverage
-      end
-
-      # @return [String] URL for current coverage build result
-      def url
-        current_result.url
-      end
-
       # @return [String, nil]
       def pretty_base_diff
         return unless base_diff
