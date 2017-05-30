@@ -1,10 +1,13 @@
 module CircleCI
   module CoverageReporter
+    # Encapsulate a report created by a reporter.
+    #
+    # @see Reporters::Base#report
     class Report
-      # @param reporter [Reporters::Base]
+      # @param reporter [Reporters::Base] the reporter of the report
       # @param current [Result]
-      # @param base [Result, nil]
-      # @param previous [Result, nil]
+      # @param base [Result, nil] result at master branch
+      # @param previous [Result, nil] result at previous build in same branch
       def initialize(reporter, current, base: nil, previous: nil)
         @reporter = reporter
         @current_result = current
@@ -21,13 +24,15 @@ module CircleCI
 
       attr_reader :reporter, :current_result, :base_result, :previous_result
 
+      # @return [String]
       def link
         "[#{reporter.name}](#{current_result.url})"
       end
 
+      # @return [String]
       def emoji
         if base_diff.nil? || base_diff.nan? || base_diff.round(2).zero?
-          nil
+          ''
         elsif base_diff.positive?
           ':chart_with_upwards_trend:'
         else
@@ -35,18 +40,22 @@ module CircleCI
         end
       end
 
+      # @return [String]
       def progress
-        progresses.empty? ? nil : "(#{progresses.join(', ')})"
+        progresses.empty? ? '' : "(#{progresses.join(', ')})"
       end
 
+      # @return [Array<String>]
       def progresses
         [base_progress, branch_progress].compact
       end
 
+      # @return [String, nil]
       def base_progress
         base_diff ? "[master](#{base_result.url}): #{pretty_base_diff}" : nil
       end
 
+      # @return [String, nil]
       def branch_progress
         branch_diff ? "[previous](#{previous_result.url}): #{pretty_branch_diff}" : nil
       end

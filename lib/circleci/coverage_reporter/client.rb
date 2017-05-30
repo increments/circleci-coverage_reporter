@@ -10,9 +10,12 @@ module CircleCI
     class Client
       CIRCLECI_ENDPOINT = 'https://circleci.com/api/v1.1'.freeze
 
+      # Fetch a build data from API and create a {Build} object for it.
+      #
       # @param build_number [Integer, nil]
       # @return [Build, nil]
       # @raise [RequestError]
+      # @see https://circleci.com/docs/api/v1-reference/#build
       def single_build(build_number)
         return unless build_number
         resp = get(single_build_url(build_number))
@@ -21,9 +24,12 @@ module CircleCI
         create_build(body)
       end
 
+      # Retrieve artifacts for the build.
+      #
       # @param build_number [Integer]
       # @return [Array<Artifact>]
       # @raise [RequestError]
+      # @see https://circleci.com/docs/api/v1-reference/#build-artifacts
       def artifacts(build_number)
         resp = get(artifacts_url(build_number))
         body = JSON.parse(resp.body)
@@ -31,6 +37,8 @@ module CircleCI
         body.map(&method(:create_artifact))
       end
 
+      # Find the latest build number for the given vcs revision.
+      #
       # @param revision [String]
       # @param branch [String, nil]
       # @return [Integer, nil]
@@ -39,6 +47,8 @@ module CircleCI
         build ? build.build_number : nil
       end
 
+      # Raw entry point for GET APIs.
+      #
       # @param url [String]
       # @param params [Hash]
       # @return [Faraday::Response]
@@ -55,7 +65,7 @@ module CircleCI
       end
 
       # @param build_number [Integer]
-      # @return [String]
+      # @return [String] URL for "Artifacts of a Bulid API"
       def artifacts_url(build_number)
         [
           CIRCLECI_ENDPOINT,
