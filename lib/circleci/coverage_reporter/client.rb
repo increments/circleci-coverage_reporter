@@ -105,7 +105,7 @@ module CircleCI
       # @param hash [Hash]
       # @return [Artifact]
       def create_artifact(hash)
-        Artifact.new(hash['path'], hash['pretty_path'], hash['node_index'], hash['url'])
+        Artifact.new(hash['path'], hash['url'])
       end
 
       # @param hash [Hash]
