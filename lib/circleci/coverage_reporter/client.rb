@@ -6,6 +6,7 @@ require_relative 'errors'
 
 module CircleCI
   module CoverageReporter
+    # CircleCI API client
     class Client
       CIRCLECI_ENDPOINT = 'https://circleci.com/api/v1.1'.freeze
 

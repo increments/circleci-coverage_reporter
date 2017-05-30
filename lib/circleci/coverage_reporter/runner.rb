@@ -1,4 +1,4 @@
-require_relative 'github_client'
+require_relative 'vcs/github'
 
 module CircleCI
   module CoverageReporter
@@ -26,7 +26,7 @@ module CircleCI
       def vcs_client
         case configuration.vcs_type
         when 'github'
-          GitHubClient.new(configuration.vcs_token)
+          VCS::GitHub.new(configuration.vcs_token)
         else
           raise NotImplementedError
         end
