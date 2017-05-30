@@ -1,5 +1,4 @@
-require_relative 'github_client'
-require_relative 'reports_renderer'
+require_relative 'vcs/github'
 
 module CircleCI
   module CoverageReporter
@@ -7,7 +6,7 @@ module CircleCI
       # @return [void]
       def run
         reports = reporters.map { |reporter| reporter.report(base_build, previous_build) }
-        vcs_client.create_comment(reports_renderer.render(reports))
+        vcs_client.create_comment(reports.map(&:to_s).join("\n"))
       end
 
       # @return [void]
@@ -23,16 +22,11 @@ module CircleCI
 
       private
 
-      # @return [ReportsRenderer]
-      def reports_renderer
-        ReportsRenderer.new
-      end
-
       # @return [AbstractVCSClient]
       def vcs_client
         case configuration.vcs_type
         when 'github'
-          GitHubClient.new(configuration.vcs_token)
+          VCS::GitHub.new(configuration.vcs_token)
         else
           raise NotImplementedError
         end

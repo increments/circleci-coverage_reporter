@@ -1,29 +1,15 @@
-require_relative 'flow/reporter'
-require_relative 'rubycritic/reporter'
-require_relative 'simplecov/reporter'
+require_relative 'reporters/flow'
+require_relative 'reporters/rubycritic'
+require_relative 'reporters/simplecov'
 
 module CircleCI
   module CoverageReporter
     class Configuration
       DEFAULT_REPORTERS = [
-        SimpleCov::Reporter.new,
-        Flow::Reporter.new,
-        RubyCritic::Reporter.new
+        Reporters::SimpleCov.new,
+        Reporters::Flow.new,
+        Reporters::RubyCritic.new
       ].freeze
-      DEFAULT_TEMPLATE = <<~'ERB'.freeze
-        <%- reports.each do |report| -%>
-        <%
-          link = "[#{report.reporter.name}](#{report.current_result.url})"
-          emoji = report.base_diff.nil? || report.base_diff.nan? || report.base_diff.round(2).zero? ? nil : report.base_diff.positive? ? ' :chart_with_upwards_trend:' : ' :chart_with_downwards_trend:'
-          base_progress = report.base_diff ? "[master](#{report.base_result.url}): #{report.pretty_base_diff}" : nil
-          branch_progress = report.branch_diff ? "[previous](#{report.previous_result.url}): #{report.pretty_branch_diff}" : nil
-          progresses = [base_progress, branch_progress].compact
-          progress = progresses.empty? ? nil : " (#{progresses.join(', ')})"
-        -%>
-        <%= link %>: <%= report.current_result.pretty_coverage %><%= emoji %><%= progress %>
-        <%- end -%>
-      ERB
-      DEFAULT_TEMPLATE_TRIM_MODE = '-'.freeze
       DEFAULT_VCS_TYPE = 'github'.freeze
 
       attr_accessor :circleci_token, :vcs_token
@@ -35,7 +21,7 @@ module CircleCI
         "#{user_name}/#{repository_name}"
       end
 
-      # @return [Array<AbstractReporter>]
+      # @return [Array<Reporters::Base>]
       def reporters
         @reporters ||= DEFAULT_REPORTERS.dup
       end
@@ -73,16 +59,6 @@ module CircleCI
       # @return [String]
       def repository_name
         @repository_name ||= ENV['CIRCLE_PROJECT_REPONAME']
-      end
-
-      # @return [String]
-      def template
-        @template ||= DEFAULT_TEMPLATE
-      end
-
-      # @return [String, nil]
-      def template_trim_mode
-        @template_trim_mode ||= DEFAULT_TEMPLATE_TRIM_MODE
       end
 
       # @return [String]

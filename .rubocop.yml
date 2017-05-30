@@ -11,6 +11,10 @@ Metrics/BlockLength:
 Style/AndOr:
   EnforcedStyle: conditionals
 
+Style/ClassAndModuleChildren:
+  Exclude:
+    - 'spec/**/*.rb'
+
 Style/Documentation:
   Enabled: false
 

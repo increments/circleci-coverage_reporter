@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Changed
+- Refactor how to implement reporter. Now a reporter consists of a single ruby class
+
+### Removed
+- Remove template configuration
 
 ## [0.5.0] - 2017-05-18
 ### Added

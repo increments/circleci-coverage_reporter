@@ -2,17 +2,16 @@ module CircleCI
   module CoverageReporter
     # Encapsulate a CircleCI artifact
     #
-    # @attr path [String]
-    # @attr pretty_path [String]
-    # @attr node_index [Integer]
-    # @attr url [String]
-    Artifact = Struct.new(:path, :pretty_path, :node_index, :url) do
+    # @attr path [String] abstract path to the artifact in CircleCI container
+    # @attr url [String] URL of the artifact
+    Artifact = Struct.new(:path, :url) do
+      # @param value [String]
       # @return [Boolean]
-      def end_with?(value)
-        pretty_path.end_with?(value)
+      def match?(value)
+        path.end_with?(value)
       end
 
-      # @return [String]
+      # @return [String] content of the artifact
       def body
         @body ||= CoverageReporter.client.get(url).body
       end

@@ -14,7 +14,7 @@ RuboCop::RakeTask.new
 YARD::Rake::YardocTask.new
 
 CircleCI::CoverageReporter.configure do |config|
-  config.reporters << CircleCI::CoverageReporter::Link::Reporter.new('doc', 'index.html', name: 'YARD')
+  config.reporters << CircleCI::CoverageReporter::Reporters::Link.new(path: 'doc/index.html', name: 'YARD')
 end
 
 desc 'Run RubyCritic'
