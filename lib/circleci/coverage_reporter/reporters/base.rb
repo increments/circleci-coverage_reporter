@@ -93,14 +93,14 @@ module CircleCI
         # @param build [Build]
         # @return [Float]
         def build_coverage(build)
-          artifact = build.find_artifact(json_file_name) or return Float::NAN
+          artifact = build.find_artifact(json_file_name, node_index: 0) or return Float::NAN
           parse_json(artifact.body)
         end
 
         # @param build [Build]
         # @return [String]
         def build_url(build)
-          artifact = build.find_artifact(html_file_name) or return '#'
+          artifact = build.find_artifact(html_file_name, node_index: 0) or return '#'
           artifact.url
         end
 

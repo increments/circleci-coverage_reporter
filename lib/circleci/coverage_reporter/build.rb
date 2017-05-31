@@ -17,9 +17,10 @@ module CircleCI
       end
 
       # @param string [String]
+      # @param node_index [Integer, nil]
       # @return [Artifact, nil]
-      def find_artifact(string)
-        artifacts.find { |artifact| artifact.match?(string) }
+      def find_artifact(string, node_index: nil)
+        artifacts.find { |artifact| artifact.match?(string, node_index: node_index) }
       end
     end
   end
