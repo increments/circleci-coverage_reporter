@@ -34,7 +34,7 @@ module CircleCI::CoverageReporter
 
     describe '#match?' do
       subject do
-        artifact.match?(value)
+        artifact.match?(value, node_index: node_index_param)
       end
 
       context 'when the path ends with the given value' do
@@ -42,7 +42,29 @@ module CircleCI::CoverageReporter
           path[-6..-1]
         end
 
-        it { should be true }
+        context 'and node_index param is not given' do
+          let(:node_index_param) do
+            nil
+          end
+
+          it { should be true }
+        end
+
+        context 'and matching node_index param is given' do
+          let(:node_index_param) do
+            node_index
+          end
+
+          it { should be true }
+        end
+
+        context 'and nonmatching node_index param is given' do
+          let(:node_index_param) do
+            node_index + 1
+          end
+
+          it { should be false }
+        end
       end
 
       context 'otherwise' do
@@ -50,7 +72,29 @@ module CircleCI::CoverageReporter
           path[-6..-1] + 'foo'
         end
 
-        it { should be false }
+        context 'and node_index param is not given' do
+          let(:node_index_param) do
+            nil
+          end
+
+          it { should be false }
+        end
+
+        context 'and matching node_index param is given' do
+          let(:node_index_param) do
+            node_index
+          end
+
+          it { should be false }
+        end
+
+        context 'and nonmatching node_index param is given' do
+          let(:node_index_param) do
+            node_index + 1
+          end
+
+          it { should be false }
+        end
       end
     end
 
