@@ -5,7 +5,7 @@ require 'circleci/coverage_reporter/artifact'
 module CircleCI::CoverageReporter
   ::RSpec.describe(Artifact) do
     let(:artifact) do
-      described_class.new(path, url)
+      described_class.new(path, url, node_index)
     end
 
     let(:path) do
@@ -14,6 +14,10 @@ module CircleCI::CoverageReporter
 
     let(:url) do
       FFaker::Internet.http_url
+    end
+
+    let(:node_index) do
+      rand(10)
     end
 
     %w[path url].each do |attr_name|

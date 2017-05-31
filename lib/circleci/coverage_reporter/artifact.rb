@@ -4,7 +4,8 @@ module CircleCI
     #
     # @attr path [String] abstract path to the artifact in CircleCI container
     # @attr url [String] URL of the artifact
-    Artifact = Struct.new(:path, :url) do
+    # @attr node_index [Integer] the ID of the artifact's container
+    Artifact = Struct.new(:path, :url, :node_index) do
       # @param value [String]
       # @return [Boolean]
       def match?(value)
