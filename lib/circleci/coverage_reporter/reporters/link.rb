@@ -4,9 +4,18 @@ module CircleCI
   module CoverageReporter
     module Reporters
       class Link
-        LinkReport = Struct.new(:name, :url) do
+        # @attr name [String]
+        # @attr url [String]
+        # @attr base_url [String, nil]
+        # @attr previous_url [String, nil]
+        LinkReport = Struct.new(:name, :url, :base_url, :previous_url) do
+          # @return [String]
           def to_s
-            "[#{name}](#{url})"
+            links = []
+            links << "[master](#{base_url})" if base_url
+            links << "[previous](#{previous_url})" if previous_url
+            link = links.empty? ? nil : " (#{links.join(', ')})"
+            "[#{name}](#{url})#{link}"
           end
         end
 
@@ -25,8 +34,11 @@ module CircleCI
         # @note Override {Base#name}
         attr_reader :name
 
-        def report(_base_build, _previous_build)
-          LinkReport.new(name, url)
+        # @param base_build [Build, nil]
+        # @param previous_build [Build, nil]
+        # @return [LinkReport]
+        def report(base_build, previous_build)
+          LinkReport.new(name, url, extract_artifact_url(base_build), extract_artifact_url(previous_build))
         end
 
         private
@@ -47,6 +59,14 @@ module CircleCI
 
         def configuration
           CoverageReporter.configuration
+        end
+
+        # @param build [Build, nil]
+        # @return [String, nil]
+        def extract_artifact_url(build)
+          return unless build
+          artifact = build.find_artifact(path)
+          artifact ? artifact.url : nil
         end
       end
     end
