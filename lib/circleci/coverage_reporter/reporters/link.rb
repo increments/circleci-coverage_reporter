@@ -10,25 +10,28 @@ module CircleCI
           end
         end
 
-        def initialize(options = {})
-          @options = options
+        # @param path [String]
+        # @param name [String]
+        def initialize(path:, name:)
+          @path = path
+          @name = name
         end
 
         # @note Implementation for {Base#active?}
         def active?
-          File.file?(File.join(configuration.artifacts_dir, @options[:path]))
+          File.file?(File.join(configuration.artifacts_dir, path))
         end
 
         # @note Override {Base#name}
-        def name
-          @options[:name]
-        end
+        attr_reader :name
 
         def report(_base_build, _previous_build)
-          LinkReport.new(@options[:name], url)
+          LinkReport.new(name, url)
         end
 
         private
+
+        attr_reader :path
 
         # @return [String]
         def url
@@ -38,7 +41,7 @@ module CircleCI
             configuration.current_build_number,
             'artifacts',
             "0#{configuration.artifacts_dir}",
-            @options[:path]
+            path
           ].join('/')
         end
 
