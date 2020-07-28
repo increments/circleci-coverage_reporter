@@ -1,4 +1,5 @@
 require 'circleci/coverage_reporter/sandbox'
+require 'tmpdir'
 
 RSpec.configure do |c|
   c.around do |example|
