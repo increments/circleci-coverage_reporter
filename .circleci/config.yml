@@ -1,0 +1,42 @@
+version: 2.1
+
+executors:
+  custom:
+    docker:
+      - image: circleci/ruby:2.4
+    environment:
+      - CIRCLE_ARTIFACTS: /tmp/circleci-artifacts
+      - CIRCLE_TEST_REPORTS: /tmp/circleci-test-results
+
+commands:
+  setup:
+    steps:
+      - checkout
+      - run: bundle install
+  report_coverage:
+    steps:
+      - run:
+          name: Run coverage reporter
+          command: |
+            bundle exec rake rubycritic
+            bundle exec yard doc -o $CIRCLE_ARTIFACTS/doc
+            bundle exec rake circleci:report_coverage
+
+jobs:
+  tests:
+    executor: custom
+    steps:
+      - setup
+      - run:
+          name: Run rspec
+          command: bundle exec rspec --format progress --require rspec_junit_formatter --format RspecJunitFormatter -o $CIRCLE_TEST_REPORTS/rspec/junit.xml
+      - run:
+          name: Run rubocop
+          command: bundle exec rubocop
+      - report_coverage
+
+workflows:
+  version: 2
+  tests:
+    jobs:
+      - tests
