@@ -8,6 +8,7 @@ group :development, :test do
   gem 'rspec', '~> 3.5'
   gem 'rspec_junit_formatter', '~> 0.2', require: false
   gem 'rubocop', '~> 0.42'
+  gem 'rubocop-performance'
   gem 'rubycritic', '~> 3.1', require: false
   gem 'simplecov', '~> 0.13'
   gem 'yard', '~> 0.9'
