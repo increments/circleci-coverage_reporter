@@ -11,13 +11,13 @@ module CircleCI
 
       # @return [void]
       def dump
-        puts <<~EOF
+        puts <<~TEXT
           Runner            | Value
           ------------------|-----------------------------------------------------------------------------------
           base_build        | #{base_build.inspect}
           base_build_number | #{base_build_number.inspect}
           previous_build    | #{previous_build.inspect}
-        EOF
+        TEXT
       end
 
       private
@@ -70,6 +70,7 @@ module CircleCI
       # @return [Integer, nil]
       def base_build_number
         return if configuration.base_revision == configuration.current_revision
+
         @base_build_number ||= client.build_number_by_revision(base_revision, branch: 'master')
       end
     end

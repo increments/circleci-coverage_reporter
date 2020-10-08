@@ -18,9 +18,11 @@ module CircleCI
       # @see https://circleci.com/docs/api/v1-reference/#build
       def single_build(build_number)
         return unless build_number
+
         resp = get(single_build_url(build_number))
         body = JSON.parse(resp.body)
         raise RequestError.new(body['message'], resp) unless resp.success?
+
         create_build(body)
       end
 
@@ -34,6 +36,7 @@ module CircleCI
         resp = get(artifacts_url(build_number))
         body = JSON.parse(resp.body)
         raise RequestError.new(body['message'], resp) unless resp.success?
+
         body.map(&method(:create_artifact))
       end
 
@@ -84,6 +87,7 @@ module CircleCI
         resp = get(recent_builds_url(branch), limit: 100)
         body = JSON.parse(resp.body)
         raise RequestError.new(body['message'], resp) unless resp.success?
+
         body.map(&method(:create_build))
       end
 

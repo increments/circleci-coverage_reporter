@@ -65,6 +65,7 @@ module CircleCI
         # @return [String, nil]
         def extract_artifact_url(build)
           return unless build
+
           artifact = build.find_artifact(path)
           artifact ? artifact.url : nil
         end
