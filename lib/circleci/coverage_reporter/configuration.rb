@@ -14,7 +14,7 @@ module CircleCI
 
       attr_accessor :circleci_token, :vcs_token
       attr_writer :artifacts_dir, :base_revision, :current_build_number, :current_revision, :previous_build_number,
-                  :reporters, :repository_name, :template, :template_safe_mode, :template_safe_mode, :user_name, :vcs_type
+                  :reporters, :repository_name, :template, :template_safe_mode, :user_name, :vcs_type
 
       # @return [String]
       def project
@@ -53,7 +53,7 @@ module CircleCI
 
       # @return [Integer, nil]
       def previous_build_number
-        @previous_build_number ||= ENV['CIRCLE_PREVIOUS_BUILD_NUM'] && ENV['CIRCLE_PREVIOUS_BUILD_NUM'].to_i
+        @previous_build_number ||= ENV['CIRCLE_PREVIOUS_BUILD_NUM']&.to_i
       end
 
       # @return [String]
@@ -68,7 +68,7 @@ module CircleCI
 
       # @return [void]
       def dump # rubocop:disable AbcSize
-        puts <<~EOF
+        puts <<~TEXT
           Configuration         | Value
           ----------------------|----------------------------------------------------------------------------
           artifacts_dir         | #{artifacts_dir.inspect}
@@ -82,7 +82,7 @@ module CircleCI
           user_name             | #{user_name.inspect}
           vcs_token             | #{vcs_token[-4..-1].rjust(40, '*').inspect}
           vcs_type              | #{vcs_type.inspect}
-        EOF
+        TEXT
       end
     end
   end

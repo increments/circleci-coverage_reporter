@@ -38,6 +38,7 @@ module CircleCI
       configuration.reporters.select!(&:active?)
       configuration.dump
       raise NoActiveReporter if configuration.reporters.empty?
+
       Runner.new.tap(&:dump).run
     end
   end
